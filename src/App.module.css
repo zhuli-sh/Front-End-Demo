@@ -1,0 +1,36 @@
+.App {
+  background-color: rgb(162, 162, 162);
+  background-image: url("./assets/background.jpg");
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.header {
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.buttons {
+  position: absolute;
+  right: 40px;
+  display: flex;
+}
+
+.sellButton {
+  height: 48px;
+  color: white;
+  font-size: 22px;
+  border: 1px white solid;
+  line-height: 48px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 24px;
+}
+
+.sellButton:hover {
+  color: rgba(0, 0, 0, 0.603);
+  background-color: white;
+}

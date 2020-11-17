@@ -1,0 +1,23 @@
+.button {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  cursor: pointer;
+  background-color: white;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(225, 225, 225);
+}
+
+.button span {
+  font-size: 20px;
+  color: rgb(104, 104, 104);
+}
+
+.icon {
+  height: 24px;
+  margin-right: 12px;
+}
