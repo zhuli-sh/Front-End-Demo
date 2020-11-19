@@ -15,11 +15,11 @@ class Sell extends Component {
     };
   }
 
-  handleUploadImage = e => {
-    this.setState({
-      imageFile: URL.createObjectURL(e.target.files[0])
-    });
-  };
+  // handleUploadImage = e => {
+  //   this.setState({
+  //     imageFile: URL.createObjectURL(e.target.files[0])
+  //   });
+  // };
 
   handleNextClick = () => {
     this.setState({
@@ -51,7 +51,7 @@ class Sell extends Component {
     if (step === 1) {
       return (
         <UploadImage
-          handleUploadImage={this.handleUploadImage}
+          // handleUploadImage={this.handleUploadImage}
           handleNextClick={this.handleNextClick}
           imageFile={this.state.imageFile}
         />

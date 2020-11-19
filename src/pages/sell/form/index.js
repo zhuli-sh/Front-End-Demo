@@ -40,6 +40,9 @@ export default function SellForm({ handleNextClick, storeDetails }) {
           variant="outlined"
           margin="normal"
           size="small"
+          InputProps={{
+            "data-testid": "title-input"
+          }}
         />
         <TextField
           required
@@ -51,6 +54,9 @@ export default function SellForm({ handleNextClick, storeDetails }) {
           variant="outlined"
           margin="normal"
           size="small"
+          InputProps={{
+            "data-testid": "subject-input"
+          }}
         />
         <TextField
           required
@@ -62,6 +68,10 @@ export default function SellForm({ handleNextClick, storeDetails }) {
           variant="outlined"
           margin="normal"
           size="small"
+          aria-label="isbn"
+          InputProps={{
+            "data-testid": "isbn-input"
+          }}
         />
         <TextField
           required
@@ -74,7 +84,8 @@ export default function SellForm({ handleNextClick, storeDetails }) {
           margin="normal"
           size="small"
           InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+            "data-testid": "price-input"
           }}
         />
         <TextField
@@ -98,9 +109,9 @@ export default function SellForm({ handleNextClick, storeDetails }) {
           nextButtonDisabled
             ? null
             : () => {
-                storeDetails(userInput);
-                handleNextClick();
-              }
+              storeDetails(userInput);
+              handleNextClick();
+            }
         }
       >
         Next

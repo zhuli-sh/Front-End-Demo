@@ -22,14 +22,14 @@ const Confirm = ({ postDetails }) => {
     },
     {
       title: "Description",
-      value: description ? description : "None"
+      value: description
     }
   ];
   return (
     <div className={styles.formContainer}>
       <div className={styles.detailsWrapper}>
         {details.map(item => (
-          <div className={styles.detail}>
+          <div className={styles.detail} key={item.title}>
             <div className={styles.detailTitle}>{item.title}</div>
             <div className={styles.detailValue}>{item.value}</div>
           </div>

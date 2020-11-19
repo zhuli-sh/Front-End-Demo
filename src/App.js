@@ -24,10 +24,10 @@ function App() {
       (value.length === 13 && !value.includes(" ")) ||
       value.split("-").join("").length === 13
     ) {
-      history.push("/results");
+      history.push(`/results?query=${value}`);
       console.log("search by isbn");
     } else {
-      history.push("/results");
+      history.push(`/results?query=${value}`);
       console.log("search by name");
     }
   };
@@ -45,6 +45,7 @@ function App() {
           <div className={styles.headerInputContainer}>
             <div
               className={styles.homeButton}
+              data-testid="header-home-button"
               onClick={() => {
                 history.push("/");
               }}
@@ -61,13 +62,14 @@ function App() {
                   onKeyDown={handleKeyDown}
                   className={styles.input}
                   placeholder="search by book title or ISBN"
+                  data-testid="header-search-input"
                 />
                 <div
                   className={styles.iconContainer}
                   onClick={handleSubmit}
-                  data-testid="searchButton"
+                  data-testid="header-search-button"
                 >
-                  Go
+                  <SearchIcon fontSize="inherit" />
                 </div>
               </div>
             )}
