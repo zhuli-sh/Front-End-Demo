@@ -1,15 +1,38 @@
+button {
+  outline: none;
+  border: none;
+}
+
 .App {
-  background-color: rgb(162, 162, 162);
-  background-image: url("./assets/background.jpg");
-  background-blend-mode: multiply;
-  background-attachment: fixed;
-  background-size: cover;
+  background-color: #f4f5f8;
 }
 
 .header {
-  height: 80px;
+  height: 96px;
+  background-color: #f4f5f8;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  border-bottom: 1.5px rgb(227, 227, 227) solid;
+}
+
+.header_home {
+  height: 96px;
+  background-color: #f4f5f8;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+.content {
+  height: 100vh;
+  padding-top: 160px;
+  padding-bottom: 48px;
+  overflow: auto;
 }
 
 .buttons {
@@ -18,19 +41,83 @@
   display: flex;
 }
 
-.sellButton {
-  height: 48px;
+.homeButton {
+  margin-left: 40px;
+  font-weight: 600;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.book {
+  color: black;
+}
+
+.delight {
+  color: #56d886;
+}
+
+.lightButton {
+  height: 40px;
+  width: 108px;
+  font-weight: 600;
   color: white;
-  font-size: 22px;
+  background-color: #6f32ff;
+  font-size: 18px;
   border: 1px white solid;
-  line-height: 48px;
-  padding: 0 24px;
+  border-radius: 24px;
+  line-height: 40px;
+  text-align: center;
   cursor: pointer;
   transition: 0.3s;
   margin-left: 24px;
 }
 
-.sellButton:hover {
-  color: rgba(0, 0, 0, 0.603);
+.lightButton:hover {
+  background-color: #3700b8;
+}
+
+::placeholder {
+  color: #cdcdcd;
+}
+
+.inputContainer {
+  margin-left: 32px;
+  width: 360px;
+  display: flex;
+  height: 36px;
+  box-shadow: 0px 2px 6px 5px rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  transform: translateY(0px);
+}
+
+.input {
+  width: 100%;
+  border-radius: 16px 0 0 16px;
+  border: none;
+  outline: none;
+  height: 36px;
+  color: #747474;
+  font-size: 16px;
+  padding: 0 16px;
+}
+
+.iconContainer {
   background-color: white;
+  width: 40px;
+  border-radius: 0 16px 16px 0;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.iconContainer:hover {
+  background-color: #6f32ff;
+  color: white;
+}
+
+.headerInputContainer {
+  display: flex;
 }

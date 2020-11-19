@@ -1,0 +1,21 @@
+.container {
+  height: 100vh;
+  /* padding: 100px 80px 0; */
+  background-color: #f4f5f8;
+  display: flex;
+  justify-content: center;
+}
+
+.sellContainer {
+  width: 450px;
+  height: 600px;
+  padding: 3% 5% 5%;
+  background-color: white;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+  color: #5c6570;
+}

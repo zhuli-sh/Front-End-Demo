@@ -1,21 +1,31 @@
 .button {
-  height: 48px;
+  height: 40px;
+  width: 108px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   padding: 0 12px;
   cursor: pointer;
   background-color: white;
+  border-radius: 24px;
   transition: 0.3s;
+  color: #9c9c9c;
 }
 
 .button:hover {
-  background-color: rgb(225, 225, 225);
+  background-color: rgb(179, 179, 179);
+  color: white;
 }
 
 .button span {
-  font-size: 20px;
-  color: rgb(104, 104, 104);
+  font-size: 18px;
+  color: inherit;
 }
+
+/* .button span {
+  font-size: 16px;
+  color: rgb(162, 162, 162);
+} */
 
 .icon {
   height: 24px;

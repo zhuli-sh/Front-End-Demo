@@ -1,0 +1,87 @@
+.formContainer {
+  border-radius: 16px;
+  height: calc(100% - 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.doneButton {
+  height: 100%;
+  margin-left: 32px;
+  flex: 1;
+  color: white;
+  border-radius: 32px;
+  background-color: #6f32ff;
+  font-weight: 600;
+  font-size: 18px;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.doneButton:hover {
+  background-color: #3700b8;
+}
+
+.disabledDoneButton {
+  height: 32px;
+  width: 120px;
+  color: white;
+  border-radius: 16px;
+  background-color: rgba(103, 115, 131, 0.3);
+  font-weight: 500;
+  font-size: 15px;
+  transition: 0.3s;
+  cursor: default;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancelButton {
+  flex: 1;
+  height: 100%;
+  color: white;
+  border-radius: 32px;
+  background-color: rgba(103, 115, 131, 0.3);
+  /* border: 1px solid #9c9c9c; */
+  font-weight: 600;
+  font-size: 18px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.cancelButton:hover {
+  background-color: rgb(196, 196, 196);
+}
+
+.buttonContainer {
+  height: 36px;
+  margin-top: auto;
+  display: flex;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.detailsWrapper {
+  margin-top: 32px;
+}
+
+.detail {
+  margin-bottom: 20px;
+}
+
+.detailTitle {
+  color: #7d7d7d;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.detailValue {
+  font-size: 14px;
+  word-wrap: break-word;
+}
