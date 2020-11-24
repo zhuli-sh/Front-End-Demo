@@ -1,24 +1,38 @@
-// import React from "react";
-// import { GoogleLogout } from "react-google-login";
+import React from "react";
+import { useGoogleLogout } from "react-google-login";
+import { useCookies, Cookies } from "react-cookie";
+import styles from "./index.module.css";
 
-// const clientId =
-//   "707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com";
+const clientId =
+  "678044777066-144gde2c4fthh7vtojoj75oj8rf8krir.apps.googleusercontent.com";
 
-// function Logout() {
-//   const onSuccess = () => {
-//     console.log("Logout made successfully");
-//     alert("Logout made successfully ✌");
-//   };
+function Logout({ setSignedIn }) {
+  const cookie = new Cookies();
 
-//   return (
-//     <div>
-//       <GoogleLogout
-//         clientId={clientId}
-//         buttonText="Logout"
-//         onLogoutSuccess={onSuccess}
-//       ></GoogleLogout>
-//     </div>
-//   );
-// }
+  const onLogoutSuccess = () => {
+    console.log("Logout made successfully");
+    cookie.remove("uni");
+    setSignedIn(false);
+  };
 
-// export default Logout;
+  const onFailure = res => {
+    console.log("Login failed: res:", res);
+    alert(`Failed to login. `);
+  };
+
+  const { signOut } = useGoogleLogout({
+    onLogoutSuccess,
+    onFailure,
+    clientId
+  });
+
+  return (
+    <div onClick={signOut} className={styles.button}>
+      <img src="/google.svg" alt="google login" className={styles.icon}></img>
+
+      <span className="buttonText">Logout</span>
+    </div>
+  );
+}
+
+export default Logout;

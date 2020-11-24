@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { CookiesProvider } from "react-cookie";
 
 const theme = createMuiTheme({
   palette: {
@@ -19,9 +20,11 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Router>
-        <App />
-      </Router>
+      <CookiesProvider>
+        <Router>
+          <App />
+        </Router>
+      </CookiesProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

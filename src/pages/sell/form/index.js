@@ -8,7 +8,7 @@ export default function SellForm({ handleNextClick, storeDetails }) {
     (state, newState) => ({ ...state, ...newState }),
     {
       title: "",
-      subject: "",
+      category: "",
       isbn: "",
       price: "",
       description: ""
@@ -17,7 +17,7 @@ export default function SellForm({ handleNextClick, storeDetails }) {
 
   let nextButtonDisabled = !(
     userInput.title &&
-    userInput.subject &&
+    userInput.category &&
     userInput.isbn &&
     userInput.price
   );
@@ -48,8 +48,8 @@ export default function SellForm({ handleNextClick, storeDetails }) {
           required
           id="outlined-required"
           label="Subject"
-          name="subject"
-          value={userInput.subject}
+          name="category"
+          value={userInput.category}
           onChange={handleChange}
           variant="outlined"
           margin="normal"
@@ -109,9 +109,9 @@ export default function SellForm({ handleNextClick, storeDetails }) {
           nextButtonDisabled
             ? null
             : () => {
-              storeDetails(userInput);
-              handleNextClick();
-            }
+                storeDetails(userInput);
+                handleNextClick();
+              }
         }
       >
         Next

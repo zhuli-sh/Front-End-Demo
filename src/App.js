@@ -5,13 +5,19 @@ import Categories from "./pages/categories";
 import Sell from "./pages/sell";
 import Results from "./pages/results";
 import GoogleLogin from "./components/login";
+import GoogleLogout from "./components/logout";
 import { Route, useLocation, useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
+import Signup from "./pages/userInfoForm";
+import Profile from "./pages/profile";
+import UserMenu from "./components/userMenu";
+import axios from "axios";
 
 function App() {
   const history = useHistory();
   const location = useLocation();
   const [value, setValue] = useState("");
+  const [signedIn, setSignedIn] = useState(false);
   const pathName = location.pathname.slice(1);
   console.log(location.pathname.slice(1));
 
@@ -19,17 +25,28 @@ function App() {
     setValue(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    let response;
     if (
       (value.length === 13 && !value.includes(" ")) ||
       value.split("-").join("").length === 13
     ) {
-      history.push(`/results?query=${value}`);
-      console.log("search by isbn");
+      response = await axios.get(
+        `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
+      );
+
+      console.log(response);
     } else {
-      history.push(`/results?query=${value}`);
-      console.log("search by name");
+      response = await axios.get(
+        `${process.env.REACT_APP_API_HOST}/books?title=${value}`
+      );
     }
+    history.push({
+      pathname: `/results`,
+      search: `?query=${value}`,
+      state: response.data
+    });
+    // history.push("/results");
   };
 
   const handleKeyDown = e => {
@@ -76,12 +93,22 @@ function App() {
           </div>
         )}
         <div className={styles.buttons}>
-          <GoogleLogin />
+          {signedIn ? (
+            <UserMenu setSignedIn={setSignedIn} />
+          ) : (
+            <GoogleLogin setSignedIn={setSignedIn} />
+          )}
           <div
             className={styles.lightButton}
-            onClick={() => {
-              history.push("/sell");
-            }}
+            onClick={
+              signedIn
+                ? () => {
+                    history.push("/sell");
+                  }
+                : () => {
+                    alert("You must log in first!");
+                  }
+            }
           >
             Sell
           </div>
@@ -92,6 +119,8 @@ function App() {
         <Route exact path="/categories" component={Categories} />
         <Route exact path="/sell" component={Sell} />
         <Route exact path="/results" component={Results} />
+        <Route exact path="/user/update" component={Signup} />
+        <Route exact path="/user/profile" component={Profile} />
       </div>
     </div>
   );

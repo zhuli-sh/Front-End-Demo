@@ -16,6 +16,7 @@ button {
   width: 100%;
   top: 0;
   border-bottom: 1.5px rgb(227, 227, 227) solid;
+  z-index: 10;
 }
 
 .header_home {
@@ -58,7 +59,7 @@ button {
 
 .lightButton {
   height: 40px;
-  width: 108px;
+  width: 68px;
   font-weight: 600;
   color: white;
   background-color: #6f32ff;

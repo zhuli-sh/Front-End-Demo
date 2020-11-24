@@ -1,0 +1,5 @@
+.button {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", sans-serif !important;
+  transform: translateY(2px);
+}

@@ -3,6 +3,7 @@ import styles from "./index.module.css";
 import UploadImage from "./uploadImage";
 import SellForm from "./form";
 import Confirm from "./confirmation";
+import axios from "axios";
 
 class Sell extends Component {
   constructor(props) {
@@ -20,6 +21,23 @@ class Sell extends Component {
   //     imageFile: URL.createObjectURL(e.target.files[0])
   //   });
   // };
+
+  handleSubmit = async () => {
+    let data = {
+      ...this.state.postDetails,
+      listing_id: Math.floor(Math.random() * 100001),
+      uni: "zl2890",
+      image_url: "",
+      is_sold: 0
+    };
+    let res = await axios.post("http://localhost:5000/posts", data);
+    this.setState({ step: 4 });
+    console.log(res);
+  };
+
+  handleEdit = () => {
+    this.setState({ step: 2 });
+  };
 
   handleNextClick = () => {
     this.setState({
@@ -40,7 +58,7 @@ class Sell extends Component {
       title = "Upload Photo";
     } else if (step === 2) {
       title = "Tell Us More";
-    } else {
+    } else if (step === 3) {
       title = "Confirm";
     }
     return title;
@@ -63,9 +81,21 @@ class Sell extends Component {
           storeDetails={this.storeDetails}
         />
       );
+    } else if (step === 3) {
+      return (
+        <Confirm
+          postDetails={this.state.postDetails}
+          handleSubmit={this.handleSubmit}
+          handleEdit={this.handleEdit}
+        />
+      );
     } else {
-      return <Confirm postDetails={this.state.postDetails} />;
+      return this.successPage();
     }
+  };
+
+  successPage = () => {
+    return <div>Posted successfully!</div>;
   };
 
   render() {

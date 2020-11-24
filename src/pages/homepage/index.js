@@ -2,27 +2,37 @@ import React, { useState } from "react";
 import styles from "./index.module.css";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link, useHistory } from "react-router-dom";
-
+import axios from "axios";
 
 function Home(props) {
-
   const [value, setValue] = useState("");
   const history = useHistory("");
   const handleChange = e => {
     setValue(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    let response;
     if (
       (value.length === 13 && !value.includes(" ")) ||
       value.split("-").join("").length === 13
     ) {
-      history.push(`/results?query=${value}`);
-      console.log("search by isbn");
+      response = await axios.get(
+        `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
+      );
+
+      console.log(response);
     } else {
-      history.push(`/results?query=${value}`);
-      console.log("search by name");
+      response = await axios.get(
+        `${process.env.REACT_APP_API_HOST}/books?title=${value}`
+      );
     }
+    history.push({
+      pathname: `/results`,
+      search: `?query=${value}`,
+      state: response.data
+    });
+    // history.push("/results");
   };
 
   const handleKeyDown = e => {
@@ -30,7 +40,6 @@ function Home(props) {
       handleSubmit();
     }
   };
-
 
   return (
     <div className={styles.container}>
@@ -49,7 +58,11 @@ function Home(props) {
             placeholder="search by book title or ISBN"
             data-testid="search-input"
           />
-          <div className={styles.iconContainer} onClick={handleSubmit} data-testid="searchButton">
+          <div
+            className={styles.iconContainer}
+            onClick={handleSubmit}
+            data-testid="searchButton"
+          >
             <SearchIcon fontSize="inherit" />
           </div>
         </div>
@@ -59,7 +72,6 @@ function Home(props) {
       </div>
     </div>
   );
-
 }
 
 export default Home;

@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./index.module.css";
 
-const Confirm = ({ postDetails }) => {
-  const { title, subject, isbn, price, description } = postDetails;
+const Confirm = ({ postDetails, handleSubmit, handleEdit }) => {
+  const { title, category, isbn, price, description } = postDetails;
   const details = [
     {
       title: "Book Title",
       value: title
     },
     {
-      title: "Subject",
-      value: subject
+      title: "Category",
+      value: category
     },
     {
       title: "ISBN",
@@ -36,8 +36,12 @@ const Confirm = ({ postDetails }) => {
         ))}
       </div>
       <div className={styles.buttonContainer}>
-        <button className={styles.cancelButton}>Edit</button>
-        <button className={styles.doneButton}>Post</button>
+        <button className={styles.cancelButton} onClick={handleEdit}>
+          Edit
+        </button>
+        <button className={styles.doneButton} onClick={handleSubmit}>
+          Post
+        </button>
       </div>
     </div>
   );

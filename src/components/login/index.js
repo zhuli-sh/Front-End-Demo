@@ -1,42 +1,53 @@
 import React from "react";
 import { useGoogleLogin } from "react-google-login";
 import styles from "./index.module.css";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useCookies, Cookies } from "react-cookie";
 
-// // refresh token
+// refresh token
 // import { refreshTokenSetup } from "../../utils";
 
-// const clientId =
-//   "707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com";
+const clientId =
+  "678044777066-144gde2c4fthh7vtojoj75oj8rf8krir.apps.googleusercontent.com";
 
-function LoginHooks() {
-  // const onSuccess = res => {
-  //   console.log("Login Success: currentUser:", res.profileObj);
-  //   alert(
-  //     `Logged in successfully`
-  //   );
-  //   refreshTokenSetup(res);
-  // };
+function LoginHooks({ setSignedIn }) {
+  const history = useHistory();
 
-  // const onFailure = res => {
-  //   console.log("Login failed: res:", res);
-  //   alert(`Failed to login. `);
-  // };
+  const cookie = new Cookies();
 
-  // const { signIn } = useGoogleLogin({
-  //   onSuccess,
-  //   onFailure,
-  //   clientId,
-  //   isSignedIn: true,
-  //   accessType: "offline"
-  //   // responseType: 'code',
-  //   // prompt: 'consent',
-  // });
+  const onSuccess = async res => {
+    console.log("Login Success: currentUser:", res.profileObj);
+    let uni = res.profileObj.email.split("@columbia.edu")[0];
+    cookie.set("uni", uni);
+    setSignedIn(true);
+
+    let response = await axios.get(
+      `${process.env.REACT_APP_API_HOST}/users/${uni}`
+    );
+    const { data = [] } = response;
+    if (!data.length) {
+      history.push("/user/update");
+    }
+
+    // alert(`Logged in successfully`);
+    // refreshTokenSetup(res);
+  };
+
+  const onFailure = res => {
+    console.log("Login failed: res:", res);
+    alert(`Failed to login. `);
+  };
+
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId,
+    isSignedIn: true
+  });
 
   return (
-    <div
-      // onClick={signIn}
-      className={styles.button}
-    >
+    <div onClick={signIn} className={styles.button}>
       <img src="/google.svg" alt="google login" className={styles.icon}></img>
 
       <span className="buttonText">Login</span>
