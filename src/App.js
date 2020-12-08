@@ -29,21 +29,21 @@ function App() {
   };
 
   const handleSubmit = async () => {
-    let response;
-    if (
-      (value.length === 13 && !value.includes(" ")) ||
-      value.split("-").join("").length === 13
-    ) {
-      response = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
-      );
+    let response = {data: []};
+    // if (
+    //   (value.length === 13 && !value.includes(" ")) ||
+    //   value.split("-").join("").length === 13
+    // ) {
+    //   response = await axios.get(
+    //     `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
+    //   );
 
-      console.log(response);
-    } else {
-      response = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/books?title=${value}`
-      );
-    }
+    //   console.log(response);
+    // } else {
+    //   response = await axios.get(
+    //     `${process.env.REACT_APP_API_HOST}/books?title=${value}`
+    //   );
+    // }
     history.push({
       pathname: `/results`,
       search: `?query=${value}`,
