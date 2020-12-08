@@ -23,16 +23,16 @@ class Sell extends Component {
   // };
 
   handleSubmit = async () => {
-    let data = {
-      ...this.state.postDetails,
-      listing_id: Math.floor(Math.random() * 100001),
-      uni: "zl2890",
-      image_url: "",
-      is_sold: 0
-    };
-    let res = await axios.post("http://localhost:5000/posts", data);
+    // let data = {
+    //   ...this.state.postDetails,
+    //   listing_id: Math.floor(Math.random() * 100001),
+    //   uni: "zl2890",
+    //   image_url: "",
+    //   is_sold: 0
+    // };
+    // let res = await axios.post("http://localhost:5000/posts", data);
     this.setState({ step: 4 });
-    console.log(res);
+    // console.log(res);
   };
 
   handleEdit = () => {

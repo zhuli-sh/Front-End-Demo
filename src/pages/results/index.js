@@ -40,7 +40,8 @@ function Results() {
         {location.search.split("query=")[1]}"
       </h2>
       <div className={styles.resultContainer}>
-        {location.state.map((result, index) => listItem(result, index))}
+        {/* {location.state.map((result, index) => listItem(result, index))} */}
+        {[{title: "Calc 3", category: "Math", isbn: "1231231231231", price: "15", uni:"zl2890"}].map((result, index) => listItem(result, index))}
       </div>
     </div>
   );

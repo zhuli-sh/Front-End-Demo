@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@react-mock/state": "^0.1.8",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.2",
     "@testing-library/user-event": "^12.2.2",
@@ -13,8 +14,11 @@
     "react-cookie": "^4.0.3",
     "react-dom": "^17.0.1",
     "react-google-login": "^5.1.22",
+    "react-google-places-autocomplete": "^3.0.0",
+    "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-text-mask": "^5.4.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -44,7 +48,12 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
-      "!src/index.js"
+      "!src/index.js",
+      "!src/components/login/index.js",
+      "!src/components/logout/index.js",
+      "!src/components/addressSearch/index.js",
+      "!src/pages/userInfoForm/index.js",
+      "!src/components/userMenu/index.js"
     ]
   }
 }

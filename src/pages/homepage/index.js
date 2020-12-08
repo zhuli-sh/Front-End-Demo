@@ -6,33 +6,37 @@ import axios from "axios";
 
 function Home(props) {
   const [value, setValue] = useState("");
-  const history = useHistory("");
+  const history = useHistory();
   const handleChange = e => {
     setValue(e.target.value);
   };
 
   const handleSubmit = async () => {
-    let response;
-    if (
-      (value.length === 13 && !value.includes(" ")) ||
-      value.split("-").join("").length === 13
-    ) {
-      response = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
-      );
+    try {
+      let response;
+      if (
+        (value.length === 13 && !value.includes(" ")) ||
+        value.split("-").join("").length === 13
+      ) {
+        response = await axios.get(
+          `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
+        );
 
-      console.log(response);
-    } else {
-      response = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/books?title=${value}`
-      );
+        console.log(response);
+      } else {
+        response = await axios.get(
+          `${process.env.REACT_APP_API_HOST}/books?title=${value}`
+        );
+      }
+      history.push({
+        pathname: `/results`,
+        search: `?query=${value}`,
+        state: response.data
+      });
+    } catch (err) {
+      // alert("Oops, something went wrong. Please try again later.");
     }
-    history.push({
-      pathname: `/results`,
-      search: `?query=${value}`,
-      state: response.data
-    });
-    // history.push("/results");
+
   };
 
   const handleKeyDown = e => {
@@ -61,7 +65,7 @@ function Home(props) {
           <div
             className={styles.iconContainer}
             onClick={handleSubmit}
-            data-testid="searchButton"
+            data-testid="search-button"
           >
             <SearchIcon fontSize="inherit" />
           </div>

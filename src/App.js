@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import styles from "./App.module.css";
 import Home from "./pages/homepage";
@@ -12,8 +13,10 @@ import Signup from "./pages/userInfoForm";
 import Profile from "./pages/profile";
 import UserMenu from "./components/userMenu";
 import axios from "axios";
+import { Cookies } from "react-cookie";
 
 function App() {
+  const cookie = new Cookies();
   const history = useHistory();
   const location = useLocation();
   const [value, setValue] = useState("");
@@ -93,21 +96,21 @@ function App() {
           </div>
         )}
         <div className={styles.buttons}>
-          {signedIn ? (
+          {cookie.get('uni') ? (
             <UserMenu setSignedIn={setSignedIn} />
           ) : (
-            <GoogleLogin setSignedIn={setSignedIn} />
-          )}
+              <GoogleLogin setSignedIn={setSignedIn} />
+            )}
           <div
             className={styles.lightButton}
             onClick={
-              signedIn
+              cookie.get('uni')
                 ? () => {
-                    history.push("/sell");
-                  }
+                  history.push("/sell");
+                }
                 : () => {
-                    alert("You must log in first!");
-                  }
+                  // alert("You must log in first!");
+                }
             }
           >
             Sell

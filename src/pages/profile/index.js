@@ -10,30 +10,31 @@ const Profile = () => {
   const history = useHistory();
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    async function getProfile() {
-      let userResponse = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/users/${uni}`
-      );
-      let addressResponse = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/users/${uni}/addresses`
-      );
+  // useEffect(() => {
+  //   async function getProfile() {
+  //     let userResponse = await axios.get(
+  //       `${process.env.REACT_APP_API_HOST}/users/${uni}`
+  //     );
+  //     let addressResponse = await axios.get(
+  //       `${process.env.REACT_APP_API_HOST}/users/${uni}/addresses`
+  //     );
 
-      let { email, phone_number, user_name } = userResponse.data[0];
-      let { state, city, address, zipcode } = addressResponse.data[0];
-      console.log(userResponse, addressResponse);
-      setUser({
-        email,
-        phone_number,
-        user_name,
-        state,
-        city,
-        address,
-        zipcode
-      });
-    }
-    getProfile();
-  }, [uni]);
+      
+  //     let { email, phone_number, user_name } = userResponse.data[0];
+  //     let { state, city, address, zipcode } = addressResponse.data[0];
+  //     console.log(userResponse, addressResponse);
+  //     setUser({
+  //       email,
+  //       phone_number,
+  //       user_name,
+  //       state,
+  //       city,
+  //       address,
+  //       zipcode
+  //     });
+  //   }
+  //   getProfile();
+  // }, [uni]);
 
   const handleClick = () => {
     history.push("/user/update");
@@ -82,7 +83,7 @@ const Profile = () => {
         ))}
       </div>
       <div className={styles.buttonContainer}>
-        <button className={styles.cancelButton} onClick={handleClick}>
+        <button className={styles.cancelButton} onClick={handleClick} data-testid="profile-edit">
           Edit
         </button>
       </div>

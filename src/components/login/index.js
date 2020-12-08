@@ -18,13 +18,17 @@ function LoginHooks({ setSignedIn }) {
 
   const onSuccess = async res => {
     console.log("Login Success: currentUser:", res.profileObj);
-    let uni = res.profileObj.email.split("@columbia.edu")[0];
+    let {email, familyName, givenName} = res.profileObj;
+    let uni = email.split("@columbia.edu")[0];
     cookie.set("uni", uni);
+    cookie.set("first_name", givenName);
+    cookie.set("last_name", familyName);
     setSignedIn(true);
 
     let response = await axios.get(
       `${process.env.REACT_APP_API_HOST}/users/${uni}`
     );
+    console.log(response);
     const { data = [] } = response;
     if (!data.length) {
       history.push("/user/update");

@@ -28,14 +28,14 @@ export default function SimpleMenu({ setSignedIn }) {
   };
 
   const onLogoutSuccess = () => {
-    console.log("Logout made successfully");
-    cookie.remove("uni");
-    setSignedIn(false);
+    // console.log("Logout made successfully");
+    // cookie.remove("uni");
+    // setSignedIn(false);
   };
 
   const onFailure = res => {
-    console.log("Login failed: res:", res);
-    alert(`Failed to login. `);
+    // console.log("Login failed: res:", res);
+    // alert(`Failed to login. `);
   };
 
   const { signOut } = useGoogleLogout({
@@ -51,7 +51,7 @@ export default function SimpleMenu({ setSignedIn }) {
   };
 
   return (
-    <div>
+    <div data-testid="profile-menu">
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
@@ -67,8 +67,8 @@ export default function SimpleMenu({ setSignedIn }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={onProfileClick}>Profile</MenuItem>
-        <MenuItem onClick={onLogoutClick}>Logout</MenuItem>
+        <MenuItem onClick={onProfileClick} data-testid="profile-button">Profile</MenuItem>
+        <MenuItem onClick={onLogoutClick} data-testid="logout-button">Logout</MenuItem>
       </Menu>
     </div>
   );

@@ -1,36 +1,56 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import styles from "./index.module.css";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
 import { Cookies } from "react-cookie";
+import AddressInput from '../../components/addressSearch';
 
 export default function SellForm() {
   const cookie = new Cookies();
+
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
       username: "",
       phone: "",
       country: "United States",
-      state: "NY",
-      city: "New York",
+      state: "",
+      city: "",
       address: "",
       zipcode: ""
     }
   );
 
+  useEffect(() => {
+    console.log()
+    if (userInput.address.split(', ').length === 4) {
+      const [, city, state_zip,] = userInput.address.split(', ');
+      const [state, zipcode] = state_zip.split(' ');
+      setUserInput({ state, city, zipcode });
+    } else {
+      setUserInput({ state: "", city: "", zipcode: "" });
+    }
+
+  }, [userInput.address])
+
   let nextButtonDisabled = !(
     userInput.phone &&
     userInput.address &&
-    userInput.zipcode
+    userInput.zipcode &&
+    userInput.state &&
+    userInput.city
   );
 
   const handleSubmit = async () => {
     let { username, phone, address, zipcode, country, state, city } = userInput;
     let uni = cookie.get("uni");
+    let first_name = cookie.get("first_name");
+    let last_name = cookie.get("last_name");
     let userData = {
       uni,
+      first_name,
+      last_name,
       user_name: username,
       email: `${uni}@columbia.edu`,
       phone_number: phone,
@@ -98,13 +118,14 @@ export default function SellForm() {
             "data-testid": "title-input"
           }}
         />
+        <AddressInput address={userInput.address} setUserInput={setUserInput} />
         <TextField
           required
           id="outlined-required"
           label="State"
           name="state"
-          disabled
           value={userInput.state}
+          onChange={handleChange}
           variant="outlined"
           margin="normal"
           size="small"
@@ -116,18 +137,7 @@ export default function SellForm() {
           id="outlined-password-input"
           label="City"
           name="city"
-          disabled
           value={userInput.city}
-          variant="outlined"
-          margin="normal"
-          size="small"
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="address"
-          name="address"
-          value={userInput.address}
           onChange={handleChange}
           variant="outlined"
           margin="normal"
@@ -144,6 +154,7 @@ export default function SellForm() {
           margin="normal"
           size="small"
         />
+
       </div>
       <div
         className={
