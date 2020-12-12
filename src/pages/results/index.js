@@ -1,37 +1,23 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import styles from "./index.module.css";
+import axios from 'axios';
+import { Cookies } from 'react-cookie';
+import ListItem from './resultItem';
 
-function Results() {
+
+function Results({ createConversation }) {
   const location = useLocation();
+  const cookie = new Cookies();
+  const [userUni, setUni] = useState('');
   // console.log(location.search.split("=")[1]);
   // console.log(location.state);
 
-  // useEffect(() => {
-  //   // console.log(location.pathname); // result: '/secondpage'
-  //   console.log(location.search); // result: '?query=abc'
-  //   console.log(location.state); // result: 'some_value'
-  // }, [location]);
+  useEffect(() => {
+    setUni(cookie.get('uni'));
+  }, []);
 
-  const listItem = (result, key) => {
-    const { title, category, isbn, price, uni } = result;
-    return (
-      <div className={styles.itemContainer} data-testid="result-item" key={key}>
-        <div className={styles.left}>
-          <div className={styles.imgContainer}></div>
-          <div>
-            <div className={styles.title}>{title}</div>
-            <div className={styles.category}>{category}</div>
-            <div className={styles.isbn}>ISBN: {isbn}</div>
-          </div>
-        </div>
-        <div className={styles.right}>
-          <div className={styles.price}>${price}</div>
-          <div className={styles.price}>{uni}</div>
-        </div>
-      </div>
-    );
-  };
+
 
   return (
     <div className={styles.container}>
@@ -40,8 +26,9 @@ function Results() {
         {location.search.split("query=")[1]}"
       </h2>
       <div className={styles.resultContainer}>
-        {/* {location.state.map((result, index) => listItem(result, index))} */}
-        {[{title: "Calc 3", category: "Math", isbn: "1231231231231", price: "15", uni:"zl2890"}].map((result, index) => listItem(result, index))}
+        {/* {location.state.map((result, index) => {
+          return <ListItem result={result} key={index} createConversation={createConversation} userUni={userUni} />;
+        })} */}
       </div>
     </div>
   );

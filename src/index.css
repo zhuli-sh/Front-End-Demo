@@ -16,3 +16,39 @@ code {
 * {
   box-sizing: border-box;
 }
+
+/* .str-chat__container {
+  width: 500px
+} */
+
+.str-chat {
+  height: 500px !important;
+}
+
+.str-chat-channel {
+  width: 800px !important;
+  max-width: calc(100vw - 80px) !important;
+}
+
+.str-chat__main-panel {
+  padding-top: 40px !important;
+}
+
+/* .str-chat__list {
+  flex: 0;
+  max-height: 50vh;
+  padding-top: 20px !important;
+}
+*/
+
+.str-chat__reverse-infinite-scroll {
+  padding-top: 0px !important;
+} 
+
+.str-chat-channel-list {
+  padding-top: 16px;
+}
+
+.str-chat__header-livestream-left--subtitle {
+  display: none;
+}

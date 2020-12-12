@@ -37,7 +37,10 @@ const Profile = () => {
   // }, [uni]);
 
   const handleClick = () => {
-    history.push("/user/update");
+    history.push({
+      pathname: `/user/update`,
+      state: user
+    });
   };
 
   const {

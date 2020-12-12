@@ -51,7 +51,7 @@ function SearchLocationInput({ address, setUserInput }) {
       `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&libraries=places`,
       () => handleScriptLoad(setUserInput, autoCompleteRef)
     );
-  });
+  }, []);
 
   return (
     <TextField

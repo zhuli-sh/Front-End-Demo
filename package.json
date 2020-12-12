@@ -53,7 +53,14 @@
       "!src/components/logout/index.js",
       "!src/components/addressSearch/index.js",
       "!src/pages/userInfoForm/index.js",
-      "!src/components/userMenu/index.js"
+      "!src/components/userMenu/index.js",
+      "!src/components/qrScanner/index.js",
+      "!src/pages/Checkout/index.js",
+      "!src/pages/editListing/index.js",
+      "!src/pages/Listings/listItem/index.js",
+      "!src/pages/Orders/orderItem/index.js",
+      "!src/pages/results/resultItem/index.js",
+      "!src/components/chat/index.js"
     ]
   }
 }

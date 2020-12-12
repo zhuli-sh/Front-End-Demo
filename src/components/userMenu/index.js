@@ -10,7 +10,7 @@ import { useCookies, Cookies } from "react-cookie";
 const clientId =
   "678044777066-144gde2c4fthh7vtojoj75oj8rf8krir.apps.googleusercontent.com";
 
-export default function SimpleMenu({ setSignedIn }) {
+export default function SimpleMenu({ setSignedIn, pathName, setUni }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
   const cookie = new Cookies();
@@ -27,10 +27,21 @@ export default function SimpleMenu({ setSignedIn }) {
     history.push("/user/profile");
   };
 
+  const onListingsClick = () => {
+    handleClose();
+    history.push("/listings");
+  };
+
+  const onOrdersClick = () => {
+    handleClose();
+    history.push("/orders");
+  };
+
   const onLogoutSuccess = () => {
-    // console.log("Logout made successfully");
-    // cookie.remove("uni");
-    // setSignedIn(false);
+    console.log("Logout made successfully");
+    cookie.remove("uni");
+    setUni('');
+    setSignedIn(false);
   };
 
   const onFailure = res => {
@@ -45,6 +56,7 @@ export default function SimpleMenu({ setSignedIn }) {
   });
 
   const onLogoutClick = () => {
+  
     handleClose();
     signOut();
     history.push("/");
@@ -60,6 +72,16 @@ export default function SimpleMenu({ setSignedIn }) {
       >
         Profile
       </Button>
+      {/* {pathName==="" && 
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+          className={styles.buttonMobile}
+        >
+          Profile
+        </Button>
+      } */}
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -68,6 +90,8 @@ export default function SimpleMenu({ setSignedIn }) {
         onClose={handleClose}
       >
         <MenuItem onClick={onProfileClick} data-testid="profile-button">Profile</MenuItem>
+        <MenuItem onClick={onOrdersClick} data-testid="order-button">Orders</MenuItem>
+        <MenuItem onClick={onListingsClick} data-testid="listing-button">Listings</MenuItem>
         <MenuItem onClick={onLogoutClick} data-testid="logout-button">Logout</MenuItem>
       </Menu>
     </div>

@@ -2,15 +2,11 @@ import React from "react";
 import styles from "./index.module.css";
 
 const Confirm = ({ postDetails, handleSubmit, handleEdit }) => {
-  const { title, category, isbn, price, description } = postDetails;
+  const { title, isbn, price, description } = postDetails;
   const details = [
     {
       title: "Book Title",
       value: title
-    },
-    {
-      title: "Category",
-      value: category
     },
     {
       title: "ISBN",
