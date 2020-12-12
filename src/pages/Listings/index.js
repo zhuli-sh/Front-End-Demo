@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import QRCode from 'qrcode.react';
+// import QRCode from 'qrcode.react';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import ListItem from './listItem';
 
