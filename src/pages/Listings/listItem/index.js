@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import QRCode from 'qrcode.react';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
-const ListItem = ({ result, forceUpdate }) => {
+const ListItem = ({ result }) => {
 
   const location = useLocation();
   const history = useHistory();
@@ -36,11 +36,11 @@ const ListItem = ({ result, forceUpdate }) => {
           handleClose();
           window.location.reload();
         } catch (err) {
-          alert("Oops, something went wrong. Please refresh the page.")
+          // alert("Oops, something went wrong. Please refresh the page.")
         }
       } else {
         handleClose();
-        alert("You can not delete a listing in an existing order.")
+        // alert("You can not delete a listing in an existing order.")
       }
     }
     const onEditClick = () => {
@@ -64,11 +64,11 @@ const ListItem = ({ result, forceUpdate }) => {
           handleClose();
           window.location.reload();
         } catch (err) {
-          alert("Oops, something went wrong. Please refresh the page.")
+          // alert("Oops, something went wrong. Please refresh the page.")
         }
       } else {
         handleClose();
-        alert("You can only cancel an order in progress.")
+        // alert("You can only cancel an order in progress.")
 
       }
     }

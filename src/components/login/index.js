@@ -45,7 +45,7 @@ function LoginHooks({ setSignedIn, createChatUser, setUni }) {
 
   const onFailure = res => {
     console.log("Login failed: res:", res);
-    alert(`Failed to login. `);
+    // alert(`Failed to login. `);
   };
 
   const { signIn } = useGoogleLogin({

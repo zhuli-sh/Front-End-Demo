@@ -25,11 +25,13 @@ export default function SellForm({ handleNextClick, storeDetails, postDetails })
     }
   }, [])
 
-  let nextButtonDisabled = !(
-    userInput.title &&
-    userInput.isbn &&
-    userInput.price
-  );
+  // let nextButtonDisabled = !(
+  //   userInput.title &&
+  //   userInput.isbn &&
+  //   userInput.price
+  // );
+
+  let nextButtonDisabled = false;
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -98,16 +100,11 @@ export default function SellForm({ handleNextClick, storeDetails, postDetails })
         />
       </div>
       <div
-        className={
-          nextButtonDisabled ? styles.disabledNextButton : styles.nextButton
+        className={styles.nextButton}
+        onClick={async () => {
+          await storeDetails(userInput);
+          handleNextClick();
         }
-        onClick={
-          nextButtonDisabled
-            ? null
-            : async () => {
-              await storeDetails(userInput);
-              handleNextClick();
-            }
         }
       >
         Next

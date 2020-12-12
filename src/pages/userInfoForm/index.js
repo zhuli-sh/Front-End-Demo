@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
 import { Cookies } from "react-cookie";
-import AddressInput from '../../components/addressSearch';
+// import AddressInput from '../../components/addressSearch';
 
 export default function SellForm() {
   const cookie = new Cookies();
@@ -84,32 +84,32 @@ export default function SellForm() {
 
     try {
       let userResponse, addressResponse;
-      if (location.state) {
-        userResponse = await axios.put(
-          `${process.env.REACT_APP_API_HOST}/users/${cookie.get('uni')}`,
-          userData
-        );
+      // if (location.state) {
+      //   userResponse = await axios.put(
+      //     `${process.env.REACT_APP_API_HOST}/users/${cookie.get('uni')}`,
+      //     userData
+      //   );
 
-        let addresses = await axios.get(`${process.env.REACT_APP_API_HOST}/users/${cookie.get('uni')}/addresses`)
-        let addressId = addresses.data[0].address_id;
-        addressResponse = await axios.put(
-          `${process.env.REACT_APP_API_HOST}/addresses/${addressId}`,
-          addressData
-        );
-      } else {
-        userResponse = await axios.post(
-          `${process.env.REACT_APP_API_HOST}/users`,
-          userData
-        );
-        addressResponse = await axios.post(
-          `${process.env.REACT_APP_API_HOST}/addresses`,
-          addressData
-        );
-      }
+      //   let addresses = await axios.get(`${process.env.REACT_APP_API_HOST}/users/${cookie.get('uni')}/addresses`)
+      //   let addressId = addresses.data[0].address_id;
+      //   addressResponse = await axios.put(
+      //     `${process.env.REACT_APP_API_HOST}/addresses/${addressId}`,
+      //     addressData
+      //   );
+      // } else {
+      //   userResponse = await axios.post(
+      //     `${process.env.REACT_APP_API_HOST}/users`,
+      //     userData
+      //   );
+      //   addressResponse = await axios.post(
+      //     `${process.env.REACT_APP_API_HOST}/addresses`,
+      //     addressData
+      //   );
+      // }
 
       history.push('/user/profile');
     } catch (err) {
-      alert("Oops, something went wrong. Please try again later.")
+      // alert("Oops, something went wrong. Please try again later.")
     }
 
 
@@ -135,7 +135,7 @@ export default function SellForm() {
           margin="normal"
           size="small"
           InputProps={{
-            "data-testid": "title-input"
+            "data-testid": "username-input"
           }}
         />
         <TextField
@@ -149,10 +149,10 @@ export default function SellForm() {
           margin="normal"
           size="small"
           InputProps={{
-            "data-testid": "title-input"
+            "data-testid": "phone-input"
           }}
         />
-        <AddressInput address={userInput.address} setUserInput={setUserInput} />
+        {/* <AddressInput address={userInput.address} setUserInput={setUserInput} /> */}
         <TextField
           required
           id="outlined-required"
@@ -164,7 +164,7 @@ export default function SellForm() {
           margin="normal"
           size="small"
           InputProps={{
-            "data-testid": "title-input"
+            "data-testid": "state-input"
           }}
         />
         <TextField
@@ -176,6 +176,9 @@ export default function SellForm() {
           variant="outlined"
           margin="normal"
           size="small"
+          InputProps={{
+            "data-testid": "city-input"
+          }}
         />
         <TextField
           required
@@ -187,6 +190,9 @@ export default function SellForm() {
           variant="outlined"
           margin="normal"
           size="small"
+          InputProps={{
+            "data-testid": "zipcode-input"
+          }}
         />
 
       </div>

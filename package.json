@@ -10,26 +10,21 @@
     "@testing-library/react": "^11.1.2",
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.0",
-    "braintree-web-drop-in-react": "^1.2.1",
-    "qrcode.react": "^1.0.0",
     "react": "^17.0.1",
     "react-cookie": "^4.0.3",
     "react-dom": "^17.0.1",
     "react-google-login": "^5.1.22",
     "react-google-places-autocomplete": "^3.0.0",
     "react-places-autocomplete": "^7.3.0",
-    "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-text-mask": "^5.4.3",
-    "stream-chat": "^2.9.0",
-    "stream-chat-react": "^3.3.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -52,7 +47,20 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "!src/**/*.{js,jsx}"
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/components/login/index.js",
+      "!src/components/logout/index.js",
+      "!src/components/addressSearch/index.js",
+      "!src/pages/userInfoForm/index.js",
+      "!src/components/userMenu/index.js",
+      "!src/components/qrScanner/index.js",
+      "!src/pages/Checkout/index.js",
+      "!src/pages/editListing/index.js",
+      "!src/pages/Listings/listItem/index.js",
+      "!src/pages/Orders/orderItem/index.js",
+      "!src/pages/results/resultItem/index.js",
+      "!src/components/chat/index.js"
     ]
   }
 }

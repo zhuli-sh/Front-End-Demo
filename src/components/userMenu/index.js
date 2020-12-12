@@ -72,7 +72,7 @@ export default function SimpleMenu({ setSignedIn, pathName, setUni }) {
       >
         Profile
       </Button>
-      {pathName==="" && 
+      {/* {pathName==="" && 
         <Button
           aria-controls="simple-menu"
           aria-haspopup="true"
@@ -81,7 +81,7 @@ export default function SimpleMenu({ setSignedIn, pathName, setUni }) {
         >
           Profile
         </Button>
-      }
+      } */}
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -90,8 +90,8 @@ export default function SimpleMenu({ setSignedIn, pathName, setUni }) {
         onClose={handleClose}
       >
         <MenuItem onClick={onProfileClick} data-testid="profile-button">Profile</MenuItem>
-        <MenuItem onClick={onOrdersClick} data-testid="profile-button">Orders</MenuItem>
-        <MenuItem onClick={onListingsClick} data-testid="profile-button">Listings</MenuItem>
+        <MenuItem onClick={onOrdersClick} data-testid="order-button">Orders</MenuItem>
+        <MenuItem onClick={onListingsClick} data-testid="listing-button">Listings</MenuItem>
         <MenuItem onClick={onLogoutClick} data-testid="logout-button">Logout</MenuItem>
       </Menu>
     </div>

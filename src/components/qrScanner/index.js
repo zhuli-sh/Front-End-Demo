@@ -16,9 +16,9 @@ function Test({ listingId, orderId, setScannerOpen }) {
         await axios.put(`${process.env.REACT_APP_API_HOST}/posts/${listingId}`, { is_sold: 1 });
         setScannerOpen(false);
         window.location.reload();
-        alert('Order completed!');
+        // alert('Order completed!');
       } catch (err) {
-        alert("oops, something went wrong. Please try again later");
+        // alert("oops, something went wrong. Please try again later");
       }
     }
   }
