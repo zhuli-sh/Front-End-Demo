@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import styles from "./index.module.css";
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
-import DropIn from "braintree-web-drop-in-react";
+// import DropIn from "braintree-web-drop-in-react";
 
 const Checkout = () => {
   const location = useLocation();
@@ -29,10 +29,10 @@ const Checkout = () => {
   return (
     <div className={styles.container}>
         <h2>Checkout</h2>
-        <DropIn
+        {/* <DropIn
           options={{ authorization: '123' }}
           onInstance={(clientInstance) => (setInstance(clientInstance))}
-        />
+        /> */}
         <button className={styles.button} onClick={buy}>Buy</button>
     </div>
   );
