@@ -25,7 +25,7 @@ import Listings from './pages/Listings';
 import ListingForm from './pages/editListing';
 import Checkout from './pages/Checkout';
 
-import 'stream-chat-react/dist/css/index.css';
+// import 'stream-chat-react/dist/css/index.css';
 
 function App() {
   const cookie = new Cookies();
