@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import Home from "./pages/homepage";
-import Categories from "./pages/categories";
 import Sell from "./pages/sell";
 import Results from "./pages/results";
 import GoogleLogin from "./components/login";
@@ -46,72 +45,72 @@ function App() {
   };
 
   const handleSubmit = async () => {
-    if (!value) {
-      return;
-    }
-    let response;
-    if (
-      (value.length === 13 && !value.includes(" ")) ||
-      value.split("-").join("").length === 13
-    ) {
-      response = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
-      );
+    // if (!value) {
+    //   return;
+    // }
+    // let response;
+    // if (
+    //   (value.length === 13 && !value.includes(" ")) ||
+    //   value.split("-").join("").length === 13
+    // ) {
+    //   response = await axios.get(
+    //     `${process.env.REACT_APP_API_HOST}/books?isbn=${value}`
+    //   );
 
-      console.log(response);
-    } else {
-      response = await axios.get(
-        `${process.env.REACT_APP_API_HOST}/books?title=${value}`
-      );
-    }
-    setValue('');
+    //   console.log(response);
+    // } else {
+    //   response = await axios.get(
+    //     `${process.env.REACT_APP_API_HOST}/books?title=${value}`
+    //   );
+    // }
+    // setValue('');
     history.push({
       pathname: `/results`,
       search: `?query=${value}`,
-      state: response.data
+      state: []
     });
     // history.push("/results");
   };
 
   // const client = new StreamChat('wgyfusx8bby7');
 
-  const client = new StreamChat('wgyfusx8bby7');
-  if (uniCookie) {
-    client.setUser(
-      {
-        id: uniCookie,
-        name: uniCookie,
-      },
-      client.devToken(uniCookie)
-    );
-    client.on('typing.start', event => {
-      console.log("new message");
-    })
-  }
+  // const client = new StreamChat('wgyfusx8bby7');
+  // if (uniCookie) {
+  //   client.setUser(
+  //     {
+  //       id: uniCookie,
+  //       name: uniCookie,
+  //     },
+  //     client.devToken(uniCookie)
+  //   );
+  //   client.on('typing.start', event => {
+  //     console.log("new message");
+  //   })
+  // }
 
 
 
-  const filter = { type: 'messaging', members: { $in: ['zl2890'] } };
-  const sort = { last_message_at: -1 };
+  // const filter = { type: 'messaging', members: { $in: ['zl2890'] } };
+  // const sort = { last_message_at: -1 };
 
-  const ChatApp = () => (
-    <Chat client={client} theme={'messaging dark'}>
-      <ChannelList
-        filters={filter}
-        sort={sort}
-        List={ChannelListMessenger}
-        Preview={ChannelPreviewMessenger}
-      />
-      <Channel>
-        <Window>
-          <ChannelHeader />
-          <MessageList TypingIndicator={TypingIndicator} />
-          <MessageInput Input={MessageInputFlat} focus />
-        </Window>
-        <Thread Message={MessageSimple} />
-      </Channel>
-    </Chat>
-  );
+  // const ChatApp = () => (
+  //   <Chat client={client} theme={'messaging dark'}>
+  //     <ChannelList
+  //       filters={filter}
+  //       sort={sort}
+  //       List={ChannelListMessenger}
+  //       Preview={ChannelPreviewMessenger}
+  //     />
+  //     <Channel>
+  //       <Window>
+  //         <ChannelHeader />
+  //         <MessageList TypingIndicator={TypingIndicator} />
+  //         <MessageInput Input={MessageInputFlat} focus />
+  //       </Window>
+  //       <Thread Message={MessageSimple} />
+  //     </Channel>
+  //   </Chat>
+  // );
 
   useEffect(() => {
     const setup = function () {
@@ -135,27 +134,27 @@ function App() {
   //   console.log(channels);
   // }
 
-  const createChatUser = async (userUni) => {
-    console.log("uni", userUni);
-    client.disconnect();
-    client.setUser(
-      {
-        id: userUni,
-        name: userUni,
-      },
-      client.devToken(userUni)
-    );
-  }
+  // const createChatUser = async (userUni) => {
+  //   console.log("uni", userUni);
+  //   client.disconnect();
+  //   client.setUser(
+  //     {
+  //       id: userUni,
+  //       name: userUni,
+  //     },
+  //     client.devToken(userUni)
+  //   );
+  // }
 
-  const createConversation = async (bookName, sellerUni) => {
-    const conversation = client.channel('messaging', {
-      name: `${bookName}`,
-      members: [uni, sellerUni]
-    })
+  // const createConversation = async (bookName, sellerUni) => {
+  //   const conversation = client.channel('messaging', {
+  //     name: `${bookName}`,
+  //     members: [uni, sellerUni]
+  //   })
 
-    await conversation.create()
-    setChatOpen(true);
-  }
+  //   await conversation.create()
+  //   setChatOpen(true);
+  // }
 
   const handleKeyDown = e => {
     if (e.key === "Enter") {
@@ -163,25 +162,28 @@ function App() {
     }
   };
 
-  const closeChat = () => {
-    setChatOpen(false);
-  }
+  // const closeChat = () => {
+  //   setChatOpen(false);
+  // }
 
   return (
-    <div className={dim ? styles.dimApp : styles.App}>
-      {signedIn && <div className={styles.chatButton} onClick={() => {
-        setChatOpen(true);
-      }}>
+    <div className={styles.App}>
+      {signedIn && <div
+        className={styles.chatButton}
+        // onClick={() => {
+        //   setChatOpen(true);
+        // }}
+      >
         <QuestionAnswerOutlinedIcon />
       </div>}
-      {(signedIn && chatOpen) ? (
+      {/* {(signedIn && chatOpen) ? (
         <div className={styles.chatContainer}>
           <div className={styles.innerChatContainer}>
             {ChatApp()}
             <div className={styles.closeChatButton} onClick={closeChat}>close</div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
       <div className={pathName !== "" ? styles.header : styles.header_home}>
         {/* <Scanner /> */}
         {pathName !== "" && (
@@ -196,7 +198,7 @@ function App() {
               <span className={styles.book}>Book</span>
               <span className={styles.delight}>Delight</span>
             </div>
-            <div
+            {/* <div
               className={styles.homeButtonMobile}
               data-testid="header-home-button"
               onClick={() => {
@@ -205,7 +207,7 @@ function App() {
             >
               <span className={styles.book}>B</span>
               <span className={styles.delight}>D</span>
-            </div>
+            </div> */}
             {pathName !== "sell" && (
               <div className={styles.inputContainer}>
                 <input
@@ -232,7 +234,11 @@ function App() {
           {signedIn ? (
             <UserMenu setSignedIn={setSignedIn} setUni={setUni} />
           ) : (
-              <GoogleLogin setSignedIn={setSignedIn} createChatUser={createChatUser} setUni={setUni} />
+              <GoogleLogin
+                setSignedIn={setSignedIn}
+                // createChatUser={createChatUser} 
+                setUni={setUni}
+              />
             )}
           <div
             className={styles.lightButton}
@@ -242,14 +248,14 @@ function App() {
                   history.push("/sell");
                 }
                 : () => {
-                  alert("You must log in first!");
+                  // alert("You must log in first!");
                 }
             }
           >
             Sell
           </div>
         </div>
-        {pathName === "" && <div className={styles.buttonsMobile}>
+        {/* {pathName === "" && <div className={styles.buttonsMobile}>
           {signedIn ? (
             <UserMenu setSignedIn={setSignedIn} setUni={setUni} pathName={pathName} />
           ) : (
@@ -269,22 +275,21 @@ function App() {
           >
             Sell
           </div>
-        </div>}
+        </div>} */}
       </div>
       <div className={styles.content}>
         <Route exact path="/" component={Home} />
-        <Route exact path="/categories" component={Categories} />
         <Route exact path="/sell" component={Sell} />
         <Route exact path="/results" render={(props) => (
-          <Results {...props} createConversation={createConversation} />
+          <Results {...props}
+          // createConversation={createConversation}
+          />
         )} />
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/user/update" component={Signup} />
         <Route exact path="/user/profile" component={Profile} />
         <Route exact path="/orders" component={Orders} />
-        <Route exact path="/listings" render={(props) => (
-          <Listings {...props} setDim={setDim} />
-        )} />
+        <Route exact path="/listings" component={Listings} />
         <Route exact path="/listings/:listingId/edit" component={ListingForm} />
       </div>
     </div>

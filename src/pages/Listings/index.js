@@ -22,10 +22,9 @@ function Listings() {
   const [listings, setListings] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [, updateState] = React.useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = event => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   // const handleClose = () => {
   //   setAnchorEl(null);
@@ -33,34 +32,34 @@ function Listings() {
   // console.log(location.search.split("=")[1]);
   // console.log(location.state);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const getListings = async () => {
+  //   const getListings = async () => {
 
-      setLoading(true);
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_HOST}/users/${uni}/listings`);
-        setListings(response.data);
-        setLoading(false);
-        console.log("response", response.data);
+  //     setLoading(true);
+  //     try {
+  //       const response = await axios.get(`${process.env.REACT_APP_API_HOST}/users/${uni}/listings`);
+  //       setListings(response.data);
+  //       setLoading(false);
+  //       console.log("response", response.data);
 
-      } catch (err) {
-        setLoading(false);
-        alert("Oops, something went wrong. Please refresh the page.")
-      }
-    }
+  //     } catch (err) {
+  //       setLoading(false);
+  //       // alert("Oops, something went wrong. Please refresh the page.")
+  //     }
+  //   }
 
-    getListings();
+  //   getListings();
 
-  }, []);
+  // }, []);
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.h2}>
+      <h2 className={styles.h2} data-testid="listing-title" >
         Listings
       </h2>
       <div className={styles.resultContainer}>
-        {loading ? <CircularProgress className={styles.spinner} /> : listings.map((result, index) => <ListItem result={result} forceUpdate={forceUpdate} />)}
+        {/* {loading ? <CircularProgress className={styles.spinner} /> : listings.map((result, index) => <ListItem result={result} />)} */}
       </div>
     </div>
   );

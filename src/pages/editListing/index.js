@@ -37,12 +37,12 @@ export default function EditForm() {
 
   const handleSubmit = async () => {
     try {
-      let response = await axios.put(
-        `${process.env.REACT_APP_API_HOST}/posts/${location.state.listing_id}`, userInput
-      );
+      // let response = await axios.put(
+      //   `${process.env.REACT_APP_API_HOST}/posts/${location.state.listing_id}`, userInput
+      // );
       history.push('/listings');
     } catch (err) {
-      alert("oops, something went wrong. Please try again later");
+      // alert("oops, something went wrong. Please try again later");
     }
   }
 

@@ -10,50 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Scanner from '../../components/qrScanner';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-
-
-function ListItem({ result }) {
-  const [scannerOpen, setScannerOpen] = useState(false);
-  const { image_url, description, isbn, price, title, is_sold, listing_id, status, order_id } = result;
-  const onCompleteClick = () => {
-    setScannerOpen(true);
-  }
-
-  const closeScanner = () => {
-    setScannerOpen(false);
-  }
-  const scannerContainer = () => {
-    return (
-      <div className={styles.scannerContainer}>
-        <div className={styles.closeButton} onClick={closeScanner}><CloseOutlinedIcon /></div>
-        <Scanner listingId={listing_id} orderId={order_id} setScannerOpen={setScannerOpen} />
-      </div>
-    )
-  }
-  return (
-    <div className={styles.itemContainer} data-testid="result-item" >
-      {scannerOpen ? scannerContainer() : null}
-      <div className={styles.imgContainer}>
-        <img src={image_url} alt="book" />
-      </div>
-      <div className={styles.infoContainer}>
-        <div className={styles.left}>
-          <div className={styles.title}>{title}</div>
-          <div className={styles.isbn}>ISBN: {isbn}</div>
-        </div>
-        <div className={styles.right}>
-          <div className={styles.price}>
-            <span >${price}  </span>
-            <span className={styles.divider}>|</span> <span>{status}</span>
-          </div>
-          <div className={styles.pay} onClick={onCompleteClick} >Confirm</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
+import ListItem from './orderItem';
 
 function Listings() {
   const location = useLocation();
@@ -64,35 +21,35 @@ function Listings() {
   const [listings, setListings] = useState([]);
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const getListings = async () => {
+  //   const getListings = async () => {
 
-      setLoading(true);
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_HOST}/users/${uni}/orders`);
-        setListings(response.data);
-        setLoading(false);
-        console.log("response", response.data);
+  //     setLoading(true);
+  //     try {
+  //       const response = await axios.get(`${process.env.REACT_APP_API_HOST}/users/${uni}/orders`);
+  //       setListings(response.data);
+  //       setLoading(false);
+  //       console.log("response", response.data);
 
-      } catch (err) {
-        setLoading(false);
-        alert("Oops, somethign went wrong. Please refresh the page.")
-      }
-    }
+  //     } catch (err) {
+  //       setLoading(false);
+  //       // alert("Oops, somethign went wrong. Please refresh the page.")
+  //     }
+  //   }
 
-    getListings();
+  //   getListings();
 
-  }, []);
+  // }, []);
 
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.h2}>
+      <h2 className={styles.h2} data-testid="order-title">
         Orders
       </h2>
       <div className={styles.resultContainer}>
-        {loading ? <CircularProgress className={styles.spinner} /> : listings.map((result, index) => <ListItem result={result} />)}
+        {/* {listings.map((result, index) => <ListItem result={result} />)} */}
       </div>
     </div>
   );
