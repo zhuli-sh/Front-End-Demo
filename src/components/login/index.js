@@ -11,7 +11,7 @@ import { useCookies, Cookies } from "react-cookie";
 const clientId =
   "678044777066-144gde2c4fthh7vtojoj75oj8rf8krir.apps.googleusercontent.com";
 
-function LoginHooks({ setSignedIn }) {
+function LoginHooks({ setSignedIn, createChatUser, setUni }) {
   const history = useHistory();
 
   const cookie = new Cookies();
@@ -19,11 +19,16 @@ function LoginHooks({ setSignedIn }) {
   const onSuccess = async res => {
     console.log("Login Success: currentUser:", res.profileObj);
     let {email, familyName, givenName} = res.profileObj;
-    let uni = email.split("@columbia.edu")[0];
+
+    // let uni = email.split("@columbia.edu")[0];
+
+    let uni = email.split("@")[0];
     cookie.set("uni", uni);
     cookie.set("first_name", givenName);
     cookie.set("last_name", familyName);
     setSignedIn(true);
+    setUni(uni);
+    createChatUser(uni);
 
     let response = await axios.get(
       `${process.env.REACT_APP_API_HOST}/users/${uni}`

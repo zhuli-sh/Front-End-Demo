@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import styles from "./index.module.css";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -8,7 +9,8 @@ import AddressInput from '../../components/addressSearch';
 
 export default function SellForm() {
   const cookie = new Cookies();
-
+  const history = useHistory();
+  const location = useLocation();
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -18,12 +20,25 @@ export default function SellForm() {
       state: "",
       city: "",
       address: "",
-      zipcode: ""
+      zipcode: "",
+      firstRender: true
     }
   );
 
   useEffect(() => {
-    console.log()
+
+    if (userInput.firstRender && location.state) {
+      console.log(location.state);
+      let { user_name, phone_number, address, state, city, zipcode } = location.state
+      setUserInput({
+        username: user_name,
+        phone: phone_number,
+        address: address + ', ' + city + ', ' + state + ' ' + zipcode + ', USA',
+        firstRender: false
+      })
+    }
+
+
     if (userInput.address.split(', ').length === 4) {
       const [, city, state_zip,] = userInput.address.split(', ');
       const [state, zipcode] = state_zip.split(' ');
@@ -56,29 +71,48 @@ export default function SellForm() {
       phone_number: phone,
       credential: ""
     };
-    console.log(userData);
-    let userResponse = await axios.post(
-      `${process.env.REACT_APP_API_HOST}/users`,
-      userData
-    );
 
     let addressData = {
-      address_id: Math.floor(Math.random() * 100001),
+      address_id: Math.floor(Math.random() * 10001) + Date.parse(new Date()).toString().slice(1).slice(-5),
       uni,
       country,
       state,
       city,
-      address,
+      address: address.split(', ')[0],
       zipcode
     };
 
-    let addressResponse = await axios.post(
-      `${process.env.REACT_APP_API_HOST}/addresses`,
-      addressData
-    );
+    try {
+      let userResponse, addressResponse;
+      if (location.state) {
+        userResponse = await axios.put(
+          `${process.env.REACT_APP_API_HOST}/users/${cookie.get('uni')}`,
+          userData
+        );
 
-    console.log(userResponse);
-    console.log(addressResponse);
+        let addresses = await axios.get(`${process.env.REACT_APP_API_HOST}/users/${cookie.get('uni')}/addresses`)
+        let addressId = addresses.data[0].address_id;
+        addressResponse = await axios.put(
+          `${process.env.REACT_APP_API_HOST}/addresses/${addressId}`,
+          addressData
+        );
+      } else {
+        userResponse = await axios.post(
+          `${process.env.REACT_APP_API_HOST}/users`,
+          userData
+        );
+        addressResponse = await axios.post(
+          `${process.env.REACT_APP_API_HOST}/addresses`,
+          addressData
+        );
+      }
+
+      history.push('/user/profile');
+    } catch (err) {
+      alert("Oops, something went wrong. Please try again later.")
+    }
+
+
   };
 
   const handleChange = e => {

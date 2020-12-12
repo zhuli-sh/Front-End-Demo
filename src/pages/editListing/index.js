@@ -1,9 +1,13 @@
 import React, { useEffect, useReducer } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import styles from "./index.module.css";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import axios from 'axios'
 
-export default function SellForm({ handleNextClick, storeDetails, postDetails }) {
+export default function EditForm() {
+  const location = useLocation();
+  const history = useHistory();
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -16,9 +20,9 @@ export default function SellForm({ handleNextClick, storeDetails, postDetails })
   );
 
   useEffect(() => {
-    if (postDetails) {
-      let { title, isbn, price, description } = postDetails;
-      console.log(postDetails);
+    if (location.state) {
+      console.log(location.state);
+      let { title, isbn, price, description } = location.state;
       setUserInput({
         title, isbn, price, description
       })
@@ -31,6 +35,17 @@ export default function SellForm({ handleNextClick, storeDetails, postDetails })
     userInput.price
   );
 
+  const handleSubmit = async () => {
+    try {
+      let response = await axios.put(
+        `${process.env.REACT_APP_API_HOST}/posts/${location.state.listing_id}`, userInput
+      );
+      history.push('/listings');
+    } catch (err) {
+      alert("oops, something went wrong. Please try again later");
+    }
+  }
+
   const handleChange = e => {
     const { name, value } = e.target;
     setUserInput({ [name]: value });
@@ -38,6 +53,7 @@ export default function SellForm({ handleNextClick, storeDetails, postDetails })
 
   return (
     <div className={styles.container}>
+      <h2>Edit Listing</h2>
       <div className={styles.inputGroup}>
         <TextField
           required
@@ -104,13 +120,10 @@ export default function SellForm({ handleNextClick, storeDetails, postDetails })
         onClick={
           nextButtonDisabled
             ? null
-            : async () => {
-              await storeDetails(userInput);
-              handleNextClick();
-            }
+            : handleSubmit
         }
       >
-        Next
+        Update
       </div>
     </div>
   );

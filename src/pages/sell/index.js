@@ -1,37 +1,60 @@
 import React, { Component } from "react";
+import {withRouter} from 'react-router-dom';
 import styles from "./index.module.css";
 import UploadImage from "./uploadImage";
 import SellForm from "./form";
 import Confirm from "./confirmation";
 import axios from "axios";
+import { Cookies } from "react-cookie";
 
 class Sell extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageFile: null,
+      imageUrl: "",
+      imageAlt: "",
       address: "",
       step: 1,
       postDetails: null
     };
   }
 
-  // handleUploadImage = e => {
-  //   this.setState({
-  //     imageFile: URL.createObjectURL(e.target.files[0])
-  //   });
-  // };
+  handleUploadImage = () => {
+    const { files } = document.querySelector('input[type="file"]');
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    formData.append('upload_preset', 'fjl9usgo');
+    const options = {
+      method: 'POST',
+      body: formData,
+    };
+
+    return fetch(`https://api.Cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, options)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          imageUrl: res.secure_url,
+          imageAlt: `An image of ${res.original_filename}`
+        })
+      })
+      .catch(err => console.log(err));
+  }
 
   handleSubmit = async () => {
-    // let data = {
-    //   ...this.state.postDetails,
-    //   listing_id: Math.floor(Math.random() * 100001),
-    //   uni: "zl2890",
-    //   image_url: "",
-    //   is_sold: 0
-    // };
-    // let res = await axios.post("http://localhost:5000/posts", data);
-    this.setState({ step: 4 });
+    const cookie = new Cookies();
+    let data = {
+      ...this.state.postDetails,
+      listing_id: Math.floor(Math.random() * 10001) + Date.parse(new Date()).toString().slice(1).slice(-5),
+      uni: cookie.get('uni'),
+      image_url: this.state.imageUrl,
+      is_sold: 0
+    };
+    try {
+      let res = await axios.post("http://localhost:5000/posts", data);
+      this.props.history.push('/listings');
+    } catch (err) {
+      alert("Oops, something went wrong. Please try again later.");
+    }
     // console.log(res);
   };
 
@@ -40,8 +63,20 @@ class Sell extends Component {
   };
 
   handleNextClick = () => {
+    let {step, postDetails} = this.state;
+    if (step === 2) {
+      console.log(postDetails);
+      if (isNaN(postDetails.isbn) || postDetails.isbn.length !== 13) {
+        alert("Please enter a valid ISBN.");
+        return;
+      } else if (isNaN(postDetails.price)) {
+        alert("Please enter a valid price.");
+        console.log("should return");
+        return;
+      }
+    }
     this.setState({
-      step: this.state.step + 1
+      step: step + 1
     });
   };
 
@@ -69,9 +104,10 @@ class Sell extends Component {
     if (step === 1) {
       return (
         <UploadImage
-          // handleUploadImage={this.handleUploadImage}
+          handleUploadImage={this.handleUploadImage}
           handleNextClick={this.handleNextClick}
-          imageFile={this.state.imageFile}
+          imageUrl={this.state.imageUrl}
+          imageAlt={this.state.imageAlt}
         />
       );
     } else if (step === 2) {
@@ -79,6 +115,7 @@ class Sell extends Component {
         <SellForm
           handleNextClick={this.handleNextClick}
           storeDetails={this.storeDetails}
+          postDetails={this.state.postDetails}
         />
       );
     } else if (step === 3) {
@@ -112,4 +149,4 @@ class Sell extends Component {
   }
 }
 
-export default Sell;
+export default withRouter(Sell);
