@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import QRCode from 'qrcode.react';
+// import QRCode from 'qrcode.react';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 const ListItem = ({ result }) => {
@@ -74,10 +74,10 @@ const ListItem = ({ result }) => {
     }
     return (
       <div data-testid="profile-menu">
-        {code && <div className={styles.codeContainer}>
+        {/* {code && <div className={styles.codeContainer}>
           <div onClick={() => { setQRCode(false) }} className={styles.closeButton}><CloseOutlinedIcon /></div>
           <QRCode value={listing_id} />
-        </div>}
+        </div>} */}
         <Button
           aria-controls="simple-menu"
           aria-haspopup="true"
