@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import QrReader from 'react-qr-reader'
+// import QrReader from 'react-qr-reader'
 import { Route, useLocation, useHistory } from "react-router-dom";
 import axios from 'axios';
 
@@ -28,12 +28,12 @@ function Test({ listingId, orderId, setScannerOpen }) {
 
   return (
     <div>
-      <QrReader
+      {/* <QrReader
         delay={300}
         onError={handleError}
         onScan={handleScan}
         style={{ width: '100%' }}
-      />
+      /> */}
     </div>
   )
 
