@@ -21,8 +21,11 @@ function LoginHooks({ setSignedIn, createChatUser, setUni }) {
     let {email, familyName, givenName} = res.profileObj;
 
     // let uni = email.split("@columbia.edu")[0];
-
-    let uni = email.split("@")[0];
+    if (!email.includes("columbia.edu")) {
+      alert("Please Sign in using your Columbia email account.");
+      return;
+    }
+    let uni = email.split("@columbia.edu")[0];
     cookie.set("uni", uni);
     cookie.set("first_name", givenName);
     cookie.set("last_name", familyName);
