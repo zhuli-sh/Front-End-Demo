@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import QrReader from 'react-qr-reader'
 import { Route, useLocation, useHistory } from "react-router-dom";
 import axios from 'axios';
+import {Cookies} from 'react-cookie';
 
 function Test({ listingId, orderId, setScannerOpen }) {
   const history = useHistory();
+  const cookie = new Cookies();
+  const uni = cookie.get('uni');
 
   const handleScan = async (data) => {
     console.log(orderId);
@@ -12,8 +15,8 @@ function Test({ listingId, orderId, setScannerOpen }) {
 
 
       try {
-        await axios.put(`${process.env.REACT_APP_API_HOST}/orders/${orderId}`, { status: "Completed" });
-        await axios.put(`${process.env.REACT_APP_API_HOST}/posts/${listingId}`, { is_sold: 1 });
+        await axios.put(`${process.env.REACT_APP_API_HOST}/orders/${orderId}/${uni}`);
+        // await axios.put(`${process.env.REACT_APP_API_HOST}/posts/${listingId}`, { is_sold: 1 });
         setScannerOpen(false);
         window.location.reload();
         alert('Order completed!');

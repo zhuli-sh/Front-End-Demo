@@ -82,6 +82,11 @@ export default function SellForm() {
       zipcode
     };
 
+    if (isNaN(phone) || phone.length !== 10) {
+      alert("Must enter a valid phone number!");
+      return;
+    } 
+
     try {
       let userResponse, addressResponse;
       if (location.state) {

@@ -75,7 +75,7 @@ function App() {
 
   // const client = new StreamChat('wgyfusx8bby7');
 
-  const client = new StreamChat('7jahuv9pc9sw');
+  const client = new StreamChat('r6h6jhk9jyzq');
   if (uniCookie) {
     client.setUser(
       {
