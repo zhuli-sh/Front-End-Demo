@@ -75,7 +75,7 @@ function App() {
 
   // const client = new StreamChat('wgyfusx8bby7');
 
-  const client = new StreamChat('wgyfusx8bby7');
+  const client = new StreamChat('7jahuv9pc9sw');
   if (uniCookie) {
     client.setUser(
       {
@@ -91,7 +91,7 @@ function App() {
 
 
 
-  const filter = { type: 'messaging', members: { $in: ['zl2890'] } };
+  const filter = { type: 'messaging', members: { $in: [uniCookie] } };
   const sort = { last_message_at: -1 };
 
   const ChatApp = () => (
